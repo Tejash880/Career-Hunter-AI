@@ -115,31 +115,63 @@ def seed_database():
                 "ats_source": "greenhouse",
                 "job_description": "Build scalable web applications using modern JavaScript frameworks. Collaborate with product and design teams to create exceptional user experiences.",
                 "is_active": True
+            },
+            {
+                "title": "Product Manager",
+                "department": "Product",
+                "location": "Seattle, WA",
+                "remote_type": "hybrid",
+                "salary_min": 120000,
+                "salary_max": 160000,
+                "experience_level": "mid",
+                "employment_type": "full-time",
+                "skills_required": ["Product Strategy", "Analytics", "SQL", "Excel", "Jira"],
+                "skills_preferred": ["Mixpanel", "Amplitude", "Tableau", "A/B Testing"],
+                "application_url": "https://innovatesolutions.com/jobs/product-manager",
+                "posting_date": datetime.now() - timedelta(days=random.randint(1, 12)),
+                "last_updated": datetime.now() - timedelta(days=random.randint(0, 6)),
+                "ats_source": "lever",
+                "job_description": "Drive product vision and execution for our enterprise software solutions. Work with engineering, design, and customers to deliver valuable features.",
+                "is_active": True
+            },
+            {
+                "title": "Data Scientist",
+                "department": "Data Analytics",
+                "location": "Boston, MA",
+                "remote_type": "remote",
+                "salary_min": 130000,
+                "salary_max": 170000,
+                "experience_level": "senior",
+                "employment_type": "full-time",
+                "skills_required": ["Python", "Statistics", "Machine Learning", "SQL", "Python"],
+                "skills_preferred": ["Spark", "AWS SageMaker", "Tableau", "Git"],
+                "application_url": "https://datadriven.com/careers/data-scientist",
+                "posting_date": datetime.now() - timedelta(days=random.randint(1, 8)),
+                "last_updated": datetime.now() - timedelta(days=random.randint(0, 4)),
+                "ats_source": "workday",
+                "job_description": "Analyze complex datasets to uncover business insights and build predictive models. Partner with stakeholders to drive data-informed decision making.",
+                "is_active": True
             }
         ]
-        
-        # Create jobs
+
+        # Create jobs - assign each job to a company matching its ats_source
         for job_data in sample_jobs:
-            # Find the company for this job
-            company_name = None
             ats_source = job_data["ats_source"]
-            
-            # Map ats_source to company name for simplicity
-            company_mapping = {
-                "greenhouse": "TechCorp Inc.",
-                "lever": "InnovateSolutions Ltd.",
-                "workday": "DataDriven Analytics"
-            }
-            
-            # For variety, let's assign jobs to different companies based on index
-            company_index = hash(job_data["title"]) % len(company_objects)
-            company = company_objects[company_index]
-            
+
+            # Find company with matching ats_source
+            company = None
+            for c in company_objects:
+                if c.ats_type == ats_source:
+                    company = c
+                    break
+
+            # Fallback: assign to first company if no match found
+            if company is None:
+                company = company_objects[0]
+
             job_data["company_id"] = company.id
-            # Remove ats_source from job_data as it's handled separately
-            del job_data["ats_source"]
-            
-            job = Job(**job_data, ats_source=job_data.get("ats_source", company.ats_type))
+            # Keep ats_source in job_data for Job model
+            job = Job(**job_data)
             db.add(job)
         
         # Commit all jobs
