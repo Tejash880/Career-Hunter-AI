@@ -1,0 +1,55 @@
+# Node.js
+node_modules/
+npm-debug.log*
+.yarn/*
+.pnp/
+.pnp.js
+
+# Next.js
+.next/
+out/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.DB
+.db
+.spf
+*.sqlite3
+/instance/
+.webassets-cache
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+*.log
+.git
+.mypy_cache
+.pytest_cache
+.hypothesis
+
+# Vercel
+.vercel
+
+# Misc
+.DS_Thumbnails
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Backup files
+*.bak
