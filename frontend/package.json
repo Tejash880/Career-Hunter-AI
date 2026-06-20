@@ -6,7 +6,8 @@
     "dev": "npx next dev",
     "build": "npx next build",
     "start": "npx next start",
-    "lint": "npx next lint"
+    "lint": "npx next lint",
+    "postinstall": "chmod +x node_modules/.bin/next"
   },
   "dependencies": {
     "next": "12.1.0",
